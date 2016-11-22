@@ -1,4 +1,4 @@
 #!/bin/bash -e
 
-bundle install
+bundle install --path vendor/bundle
 rubocop
