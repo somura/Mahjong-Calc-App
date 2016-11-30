@@ -31,6 +31,7 @@ group :development, :test do
   #   get a debugger console
   gem 'byebug', platform: :mri
   # for Test
+  gem 'rspec'
   gem 'rspec-rails'
   gem 'capybara'
   gem 'selenium-webdriver'
