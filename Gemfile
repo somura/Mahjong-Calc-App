@@ -7,14 +7,11 @@ gem 'mysql2', '>= 0.3.18', '< 0.5'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', '>= 5.0.6'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
-
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
@@ -33,6 +30,12 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and
   #   get a debugger console
   gem 'byebug', platform: :mri
+  # for Test
+  gem 'rspec'
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'pry-byebug'
 end
 
 group :development do
@@ -51,4 +54,12 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'rubocop'
 gem 'rubocop-checkstyle_formatter'
+
+# Json Schema
 gem 'prmd'
+
+gem 'twitter-bootstrap-rails'
+gem 'slim-rails'
+gem 'less-rails', git: 'https://github.com/MustafaZain/less-rails'
+gem 'therubyracer'
+gem 'execjs'
