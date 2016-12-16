@@ -1,6 +1,6 @@
 # Top Controller
 class TopController < ApplicationController
-  def top
-    render template: 'top/top'
+  def index
+    render template: 'top/index'
   end
 end

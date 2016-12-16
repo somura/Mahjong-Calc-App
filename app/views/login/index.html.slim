@@ -1,0 +1,9 @@
+h1 Login
+= form_tag '/login', method: :post
+  = label_tag 'ログインID'
+  = text_field_tag :login_id
+  br
+  = label_tag 'パスワード'
+  = password_field_tag :login_pass
+  br
+  = submit_tag 'ログイン'

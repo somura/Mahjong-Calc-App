@@ -1,0 +1,12 @@
+Rails:
+  Enabled: true
+
+AllCops:
+  Exclude:
+    - 'db/**/*'
+
+Metrics/AbcSize:
+  Enabled: false
+MethodLength:
+  CountComments: true  # count full line comments?
+  Max: 20
