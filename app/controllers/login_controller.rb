@@ -1,6 +1,7 @@
+# Login Controller
 class LoginController < ApplicationController
   def index
-    return render template: 'login/index'
+    render template: 'login/index'
   end
 
   def create
@@ -12,15 +13,13 @@ class LoginController < ApplicationController
       if !user.empty? && user.first.login_pass == login_pass
         cookies[:login_session] = "#{login_id}:#{login_pass}"
         return redirect_to :root
-      else
-        return render template: 'login/index', status: 400
       end
-    else
-      return render template: 'login/index', status: 400
     end
+    render template: 'login/index', status: 400
   end
 
   private
+
   def check_login_session
     login_session = cookies['login_session']
     return redirect_to :root if login_session
