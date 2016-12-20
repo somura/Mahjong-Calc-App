@@ -24,9 +24,12 @@ class LoginController < ApplicationController
 
   def check_login_session
     login_session = cookies['login_session']
-    login_id = decrypt_login_session login_session
-    user = User.where(login_id: login_id)
+    return true unless login_session
 
+    login_id = decrypt_login_session login_session
+    return true unless login_id
+
+    user = User.where(login_id: login_id)
     return redirect_to :root unless user.empty?
   end
 end

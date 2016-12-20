@@ -11,6 +11,10 @@ module LoginHelper
     cipher = OpenSSL::Cipher::Cipher.new("AES-256-CBC")
     cipher.decrypt
     cipher.pkcs5_keyivgen('password')
-    cipher.update(data) + cipher.final
+    begin
+      cipher.update(data) + cipher.final
+    rescue
+      nil
+    end
   end
 end
