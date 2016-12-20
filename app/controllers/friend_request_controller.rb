@@ -2,10 +2,11 @@ class FriendRequestController < ApplicationController
   include FriendRequestHelper
 
   def index
-    @friend_requests = FriendRequest.where(friend_user_id: user_id, status: 'new')
-    @user_names = @friend_requests.each_with_object({}) do |(friend_request), hash|
-      user = User.find(friend_request.friend_user_id)
-      hash[user.id] = user.login_id # nameを登録できるようにしたらuser.nameにする
+    friend_requests = FriendRequest.where(friend_user_id: user_id, status: 'new')
+    @user_names = friend_requests.each_with_object([]) do |(friend_request), array|
+      friend_user_id = friend_request.friend_user_id
+      user = User.find(friend_user_id)
+      array << { name: user.login_id, id: friend_request.id } # nameを登録できるようにしたらuser.nameにする
     end
     render template: 'friend_request/index'
   end
@@ -45,13 +46,15 @@ class FriendRequestController < ApplicationController
     friend_request.status = status
 
     if status == 'accepted'
-      friend_user_id = friend_request.friend_user_id
-      friend_data = [
-        { user_id: user_id,        friend_user_id: friend_user_id },
-        { user_id: friend_user_id, friend_user_id: user_id }
-      ]
-      friend = Friend.new friend_data
-      friend.save
+      friend_user_id = friend_request.user_id
+      my_friend_data = { user_id: user_id, friend_user_id: friend_user_id }
+      my_friend = Friend.new my_friend_data
+
+      friend_my_data = { user_id: friend_user_id, friend_user_id: user_id }
+      friend_my = Friend.new friend_my_data
+
+      my_friend.save
+      friend_my.save
     end
 
     friend_request.save
