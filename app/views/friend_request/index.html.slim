@@ -1,0 +1,10 @@
+h1 友達申請一覧
+- @friend_requests.each do |friend_request|
+  br
+  - user_name = @user_names[friend_request.id]
+  = p "#{user_name}"
+  = form_tag("/friend_request/#{friend_request.id}", method: :put)
+    .btn-toolbar
+      .btn-group
+        = submit_tag('承認', name: 'accepted')
+        = submit_tag('拒否', name: 'rejected')
