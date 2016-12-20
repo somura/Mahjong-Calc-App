@@ -1,5 +1,6 @@
 # ApplicationController
 class ApplicationController < ActionController::Base
+  include ApplicationHelper
   include LoginHelper
 
   protect_from_forgery with: :exception
