@@ -32,7 +32,7 @@ class FriendRequestController < ApplicationController
     friend_request_data = { user_id: user_id, friend_user_id: friend_user_id, status: 'new' }
     friend_request = FriendRequest.new friend_request_data
     friend_request.save
-    return redirect_to action: 'index'
+    redirect_to action: 'index'
   end
 
   def update
@@ -59,6 +59,6 @@ class FriendRequestController < ApplicationController
 
     friend_request.save
 
-    return redirect_to action: 'index'
+    redirect_to action: 'index'
   end
 end
