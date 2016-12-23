@@ -1,0 +1,4 @@
+h1 ゲーム一覧
+- @games.each do |game|
+  br
+  li= link_to "#{game.id}      #{game.created_at}", "/tournament/#{game.tournament_id}/game/#{game.id}"
