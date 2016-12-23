@@ -1,4 +1,23 @@
 h1 ゲーム一覧
-- @games.each do |game|
-  br
-  li= link_to "#{game.id}      #{game.created_at}", "/tournament/#{game.tournament_id}/game/#{game.id}"
+table.table.table-bordered.table-striped.table-responsive
+  thead
+    tr
+      th.info ゲーム
+      - @members.each do |member|
+        th = member.login_id
+  tbody
+    - @games.each_with_index do |game, i|
+      tr
+        td.info = i + 1
+        - game.each do |g|
+          - if g[:rank] == 1
+            td.success = g[:point]
+          - elsif g[:rank] == 4
+            td.danger = g[:point]
+          - else
+            td = g[:point]
+  tfoot
+    tr
+      td.info 合計
+      - @results.each do |result|
+        td = result

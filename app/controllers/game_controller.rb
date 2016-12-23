@@ -1,6 +1,30 @@
 class GameController < ApplicationController
   def index
-    @games = Game.where(tournament_id: params['tournament_id'])
+    tournament_id = params['tournament_id']
+    members = TournamentUser.where(tournament_id: tournament_id)
+    @members = members.each_with_object([]) do |(member), array|
+      user = User.find(member.user_id)
+      array << user
+    end
+
+    games = Game.where(tournament_id: params['tournament_id'])
+    @games = games.each_with_object([]) do |(game), array|
+      data = @members.each_with_object([]) do |(member), _array|
+        result = { user_id: member.id, name: member.login_id }
+        game_user = GameUser.where(game_id: game.id, user_id: member.id)
+        unless game_user.empty?
+          result[:point] = game_user.first.point
+          result[:rank] = game_user.first.rank
+        end
+        _array << result
+      end
+      array << data
+    end
+
+    @results = members.each_with_object([]) do |(member), array|
+      game_users = GameUser.where(tournament_id: tournament_id, user_id: member.user_id)
+      array << game_users.map {|game_user| game_user.point.to_i }.inject(:+)
+    end
     render template: 'game/index'
   end
 
@@ -75,12 +99,13 @@ class GameController < ApplicationController
     game.save
     results.each_with_index do |result, i|
       game_user_data = {
-        game_id:  game.id,
-        user_id:  result[:user],
-        score:    result[:score],
-        point:    result[:point],
-        rank:     i + 1,
-        position: result[:position],
+        tournament_id: tournament.id,
+        game_id:       game.id,
+        user_id:       result[:user],
+        score:         result[:score],
+        point:         result[:point],
+        rank:          i + 1,
+        position:      result[:position],
       }
       game_user = GameUser.new game_user_data
       game_user.save
