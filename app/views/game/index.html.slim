@@ -1,4 +1,7 @@
 h1 ゲーム一覧
+br
+= link_to 'ゲーム登録', "/tournament/#{@tournament_id}/game/new"
+br
 table.table.table-bordered.table-striped.table-responsive
   thead
     tr
@@ -8,8 +11,9 @@ table.table.table-bordered.table-striped.table-responsive
   tbody
     - @games.each_with_index do |game, i|
       tr
-        td.info = i + 1
-        - game.each do |g|
+        td.info
+          = link_to i + 1, "/tournament/#{@tournament_id}/game/#{game[:game_id]}/edit"
+        - game[:data].each do |g|
           - if g[:rank] == 1
             td.success = g[:point]
           - elsif g[:rank] == 4
@@ -21,3 +25,6 @@ table.table.table-bordered.table-striped.table-responsive
       td.info 合計
       - @results.each do |result|
         td = result
+= link_to 'ゲーム登録', "/tournament/#{@tournament_id}/game/new"
+
+= line_chart @data
