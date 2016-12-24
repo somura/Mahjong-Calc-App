@@ -50,5 +50,6 @@ test:
 production:
   <<: *default
   database: mahjong_calc_app_production
-  username: mahjong_calc_app
+  username: root
   password: <%= ENV['MAHJONG_CALC_APP_DATABASE_PASSWORD'] %>
+  socket: /var/lib/mysql/mysql.sock
