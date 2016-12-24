@@ -1,4 +1,9 @@
 h1 試合一覧
-- @tournaments.each do |tournament|
-  br
-  li= link_to "#{tournament.id}      #{tournament.created_at}", "/tournament/#{tournament.id}/game"
+table.table.table-bordered.table-striped.table-responsive
+  tbody
+  - @tournaments.each do |tournament|
+    tr
+      td
+        = link_to "#{tournament.id}      #{tournament.created_at}", "/tournament/#{tournament.id}/game"
+      td
+        = link_to "編集", "/tournament/#{tournament.id}/edit"

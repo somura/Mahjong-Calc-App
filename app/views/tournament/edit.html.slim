@@ -1,0 +1,59 @@
+h1 試合設定変更
+= form_tag "/tournament/#{@tournament_id}", method: :put
+  = label_tag 'タイプ'
+  br
+  - if @setting.mode == '4ma'
+    4麻 = radio_button_tag 'mode', '4ma', '', { checked: true }
+    3麻 = radio_button_tag 'mode', '3ma'
+  -else
+    4麻 = radio_button_tag 'mode', '4ma'
+    3麻 = radio_button_tag 'mode', '3ma', '', { checked: true }
+  br
+  = text_field_tag :def_score, @setting.def_score
+  = label_tag '点持ち'
+  = text_field_tag :return_score, @setting.return_score
+  = label_tag '点返し'
+  br
+  br
+  = label_tag 'ウマ'
+  br
+  = label_tag '1位'
+  = text_field_tag :uma1, @setting.uma1
+  br
+  = label_tag '2位'
+  = text_field_tag :uma2, @setting.uma2
+  br
+  = label_tag '3位'
+  = text_field_tag :uma3, @setting.uma3
+  br
+  = label_tag '4位'
+  = text_field_tag :uma4, @setting.uma4
+  br
+  br
+  = label_tag '点'
+  = text_field_tag :point_rate, @setting.point_rate
+  = label_tag 'G'
+  br
+  = label_tag 'チップ'
+  = text_field_tag :tip_rate, @setting.tip_rate
+  = label_tag 'G'
+  br
+  br
+  = label_tag '飛び'
+  br
+  = label_tag '点数換算'
+  = text_field_tag :tobi_point, @setting.tobi_point
+  = label_tag '点'
+  br
+  br
+  = label_tag 'メンバー'
+  br
+  - @friend_data.each do |friend|
+    br
+    = label_tag friend.login_id
+    - if @members["#{friend.id}"].nil?
+      = check_box_tag 'members[]', friend.id, false, id: "member_id_#{friend.id}"
+    - else
+      = check_box_tag 'members[]', friend.id, id: "member_id_#{friend.id}"
+  br
+  = submit_tag '変更'
