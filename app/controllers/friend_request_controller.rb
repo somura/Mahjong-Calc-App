@@ -4,7 +4,7 @@ class FriendRequestController < ApplicationController
   def index
     friend_requests = FriendRequest.where(friend_user_id: user_id, status: 'new')
     @user_names = friend_requests.each_with_object([]) do |(friend_request), array|
-      friend_user_id = friend_request.friend_user_id
+      friend_user_id = friend_request.user_id
       user = User.find(friend_user_id)
       array << { name: user.login_id, id: friend_request.id } # nameを登録できるようにしたらuser.nameにする
     end

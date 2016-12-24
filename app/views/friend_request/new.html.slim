@@ -1,6 +1,6 @@
 h1 友達申請を送る
 = form_tag '/friend_request', method: :post
   = label_tag 'ユーザID'
-  = text_field_tag :friend_user_id
+  = number_field_tag :friend_user_id
   br
   = submit_tag '送信'

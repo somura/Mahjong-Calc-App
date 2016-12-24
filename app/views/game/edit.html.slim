@@ -4,25 +4,25 @@ h1 ゲーム更新
   = label_tag '東家'
   br
   = select_tag 'position1', options_for_select(@members, @game_users[0][:user])
-  = text_field_tag :score1, @game_users[0][:score]
+  = number_field_tag :score1, @game_users[0][:score]
   = label_tag '点'
   br
   = label_tag '南家'
   br
   = select_tag 'position2', options_for_select(@members, @game_users[1][:user])
-  = text_field_tag :score2, @game_users[1][:score]
+  = number_field_tag :score2, @game_users[1][:score]
   = label_tag '点'
   br
   = label_tag '西家'
   br
   = select_tag 'position3', options_for_select(@members, @game_users[2][:user])
-  = text_field_tag :score3, @game_users[2][:score]
+  = number_field_tag :score3, @game_users[2][:score]
   = label_tag '点'
   br
   = label_tag '北家'
   br
   = select_tag 'position4', options_for_select(@members, @game_users[3][:user])
-  = text_field_tag :score4, @game_users[3][:score]
+  = number_field_tag :score4, @game_users[3][:score]
   = label_tag '点'
   br
   = submit_tag '登録'
