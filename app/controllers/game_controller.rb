@@ -30,6 +30,7 @@ class GameController < ApplicationController
         point += game_user.first.point unless game_user.empty?
         _array << [i, point]
       end
+      data = data.unshift([0, 0])
       array << { name: member.login_id, data: data }
     end
 
