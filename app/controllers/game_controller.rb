@@ -32,7 +32,6 @@ class GameController < ApplicationController
       end
       array << { name: member.login_id, data: data }
     end
-    p @data
 
     @results = members.each_with_object([]) do |(member), array|
       game_users = GameUser.where(tournament_id: @tournament_id, user_id: member.user_id)

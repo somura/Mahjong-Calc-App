@@ -55,7 +55,6 @@ class TournamentController < ApplicationController
     @members = tournament_users.each_with_object({}) do |(user), hash|
       hash["#{user.user_id}"] = true
     end
-    p @members
 
     friends = Friend.where(user_id: user_id)
     @friend_data = friends.each_with_object([]) do |(friend), array|
