@@ -52,6 +52,7 @@ GEM
       public_suffix (~> 2.0, >= 2.0.2)
     arel (7.1.4)
     ast (2.3.0)
+    bootstrap_form (2.5.3)
     builder (3.2.2)
     byebug (9.0.6)
     capybara (2.10.1)
@@ -256,6 +257,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bootstrap_form
   byebug
   capybara
   chartkick

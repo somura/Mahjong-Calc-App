@@ -1,9 +1,6 @@
 h1 会員登録
-= form_tag '/register', method: :post
-  = label_tag 'ログインID'
-  = text_field_tag :login_id
-  br
-  = label_tag 'パスワード'
-  = password_field_tag :login_pass
-  br
-  = submit_tag '登録'
+= bootstrap_form_for @user, url: { action: :create } do |f|
+  = f.text_field :name, label: 'ニックネーム'
+  = f.text_field :login_id, label: 'ログインID'
+  = f.password_field :login_pass, label: 'パスワード'
+  = f.submit '登録'
