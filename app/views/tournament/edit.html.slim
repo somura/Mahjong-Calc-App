@@ -1,59 +1,38 @@
 h1 試合設定変更
-= form_tag "/tournament/#{@tournament_id}", method: :put
-  = label_tag 'タイプ'
+= bootstrap_form_for @tournament do |f|
+  = f.label 'タイプ'
+  .form-inline
+    = f.radio_button 'mode', '4ma', label: '4麻'
+  .form-inline
+    = f.radio_button 'mode', '3ma', label: '3麻'
+  .form-inline
+    = f.number_field :def_score, label: '・'
+    = f.label '点持ち'
+  .form-inline
+    = f.number_field :return_score, label: '・'
+    = f.label '点返し'
+  = f.label 'ウマ'
+  = f.number_field :uma1, label: '1位'
+  = f.number_field :uma2, label: '2位'
+  = f.number_field :uma3, label: '3位'
+  = f.number_field :uma4, label: '4位'
+  .form-inline
+    = f.number_field :point_rate, label: 'レート(点)'
+    = f.label 'G'
+  .form-inline
+    = f.number_field :tip_rate, label: 'レート(チップ)'
+    = f.label_tag 'G'
   br
-  - if @setting.mode == '4ma'
-    4麻 = radio_button_tag 'mode', '4ma', '', { checked: true }
-    3麻 = radio_button_tag 'mode', '3ma'
-  -else
-    4麻 = radio_button_tag 'mode', '4ma'
-    3麻 = radio_button_tag 'mode', '3ma', '', { checked: true }
-  br
-  = number_field_tag :def_score, @setting.def_score
-  = label_tag '点持ち'
-  = number_field_tag :return_score, @setting.return_score
-  = label_tag '点返し'
-  br
-  br
-  = label_tag 'ウマ'
-  br
-  = label_tag '1位'
-  = number_field_tag :uma1, @setting.uma1
-  br
-  = label_tag '2位'
-  = number_field_tag :uma2, @setting.uma2
-  br
-  = label_tag '3位'
-  = number_field_tag :uma3, @setting.uma3
-  br
-  = label_tag '4位'
-  = number_field_tag :uma4, @setting.uma4
-  br
-  br
-  = label_tag '点'
-  = number_field_tag :point_rate, @setting.point_rate
-  = label_tag 'G'
-  br
-  = label_tag 'チップ'
-  = number_field_tag :tip_rate, @setting.tip_rate
-  = label_tag 'G'
-  br
-  br
-  = label_tag '飛び'
-  br
-  = label_tag '点数換算'
-  = number_field_tag :tobi_point, @setting.tobi_point
-  = label_tag '点'
-  br
-  br
-  = label_tag 'メンバー'
-  br
+  = f.label '飛び'
+  .form-inline
+    = f.number_field :tobi_point, label: 'ポイント換算'
+    = f.label 'ポイント'
+  = f.label_tag 'メンバー'
   - @friend_data.each do |friend|
-    br
-    = label_tag friend.login_id
-    - if @members["#{friend.id}"].nil?
-      = check_box_tag 'members[]', friend.id, false, id: "member_id_#{friend.id}"
-    - else
-      = check_box_tag 'members[]', friend.id, id: "member_id_#{friend.id}"
-  br
-  = submit_tag '変更'
+    .form-inline
+      = f.label friend.name
+      - if @members["#{friend.id}"].nil?
+        = check_box_tag 'members[]', friend.id, false, id: "member_id_#{friend.id}"
+      - else
+        = check_box_tag 'members[]', friend.id, id: "member_id_#{friend.id}"
+  = f.submit '変更'

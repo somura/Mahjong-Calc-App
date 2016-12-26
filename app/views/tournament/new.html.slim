@@ -1,52 +1,35 @@
 h1 試合新規登録
-= form_tag '/tournament', method: :post
-  = label_tag 'タイプ'
+= bootstrap_form_for @tournament, url: { action: :create } do |f|
+  = f.label 'タイプ'
+  .form-inline
+    = f.radio_button 'mode', '4ma', { checked: true, label: '4麻' }
+  .form-inline
+    = f.radio_button 'mode', '3ma', { label: '3麻' }
+  .form-inline
+    = f.number_field :def_score, value: 25000, label: '・'
+    = f.label '点持ち'
+  .form-inline
+    = f.number_field :return_score, value: 30000, label: '・'
+    = f.label '点返し'
+  = f.label 'ウマ'
+  = f.number_field :uma1, value: 20, label: '1位'
+  = f.number_field :uma2, value: 10, label: '2位'
+  = f.number_field :uma3, value: -10, label: '3位'
+  = f.number_field :uma4, value: -20, label: '4位'
+  .form-inline
+    = f.number_field :point_rate, value: 30, label: 'レート(点)'
+    = f.label 'G'
+  .form-inline
+    = f.number_field :tip_rate, value: 200, label: 'レート(チップ)'
+    = f.label_tag 'G'
   br
-  4麻 = radio_button_tag 'mode', '4ma', '', { checked: true }
-  3麻 = radio_button_tag 'mode', '3ma'
-  br
-  = number_field_tag :def_score, 25000
-  = label_tag '点持ち'
-  = number_field_tag :return_score, 30000
-  = label_tag '点返し'
-  br
-  br
-  = label_tag 'ウマ'
-  br
-  = label_tag '1位'
-  = number_field_tag :uma1, 20
-  br
-  = label_tag '2位'
-  = number_field_tag :uma2, 10
-  br
-  = label_tag '3位'
-  = number_field_tag :uma3, -10
-  br
-  = label_tag '4位'
-  = number_field_tag :uma4, -20
-  br
-  br
-  = label_tag '点'
-  = number_field_tag :point_rate, 30
-  = label_tag 'G'
-  br
-  = label_tag 'チップ'
-  = number_field_tag :tip_rate, 200
-  = label_tag 'G'
-  br
-  br
-  = label_tag '飛び'
-  br
-  = label_tag 'ポイント換算'
-  = number_field_tag :tobi_point
-  = label_tag 'G'
-  br
-  br
-  = label_tag 'メンバー'
-  br
+  = f.label '飛び'
+  .form-inline
+    = f.number_field :tobi_point, label: 'ポイント換算'
+    = f.label 'ポイント'
+  = f.label 'メンバー'
   - @friend_data.each do |friend|
-    br
-    = label_tag friend.login_id
-    = check_box_tag 'members[]', friend.id, id: "member_id_#{friend.id}"
-  br
-  = submit_tag '開始'
+    .form-inline
+      = f.label friend.name
+      = check_box_tag 'members[]', friend.id, id: "member_id_#{friend.id}"
+  = f.submit '開始'
