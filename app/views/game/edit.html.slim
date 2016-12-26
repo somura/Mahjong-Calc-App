@@ -1,28 +1,23 @@
 h1 ゲーム更新
-= form_tag "/tournament/#{@tournament_id}/game/#{@game_id}", method: :put
-  br
-  = label_tag '東家'
-  br
-  = select_tag 'position1', options_for_select(@members, @game_users[0][:user])
-  = number_field_tag :score1, @game_users[0][:score]
-  = label_tag '点'
-  br
-  = label_tag '南家'
-  br
-  = select_tag 'position2', options_for_select(@members, @game_users[1][:user])
-  = number_field_tag :score2, @game_users[1][:score]
-  = label_tag '点'
-  br
-  = label_tag '西家'
-  br
-  = select_tag 'position3', options_for_select(@members, @game_users[2][:user])
-  = number_field_tag :score3, @game_users[2][:score]
-  = label_tag '点'
-  br
-  = label_tag '北家'
-  br
-  = select_tag 'position4', options_for_select(@members, @game_users[3][:user])
-  = number_field_tag :score4, @game_users[3][:score]
-  = label_tag '点'
-  br
-  = submit_tag '登録'
+= bootstrap_form_tag url: "/tournament/#{@tournament_id}/game/#{@game_id}", method: :put do |f|
+  = f.label_tag '東家'
+  .form-inline
+    = f.select_tag 'position1', options_for_select(@members, @game_users[0][:user])
+    = f.number_field_tag :score1, @game_users[0][:score]
+    = f.label_tag '点'
+  = f.label_tag '南家'
+  .form-inline
+    = f.select_tag 'position2', options_for_select(@members, @game_users[1][:user])
+    = f.number_field_tag :score2, @game_users[1][:score]
+    = f.label_tag '点'
+  = f.label_tag '西家'
+  .form-inline
+    = f.select_tag 'position3', options_for_select(@members, @game_users[2][:user])
+    = f.number_field_tag :score3, @game_users[2][:score]
+    = f.label_tag '点'
+  = f.label_tag '北家'
+  .form-inline
+    = f.select_tag 'position4', options_for_select(@members, @game_users[3][:user])
+    = f.number_field_tag :score4, @game_users[2][:score]
+    = f.label_tag '点'
+  = f.submit_tag '登録'

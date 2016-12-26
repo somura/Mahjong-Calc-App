@@ -1,3 +1,3 @@
 h1 ログアウト
-= form_tag '/logout', method: :post
-  = submit_tag 'ログアウト'
+= bootstrap_form_tag url: '/logout', method: :post do |f|
+  = f.submit 'ログアウト'

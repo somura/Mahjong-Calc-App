@@ -1,6 +1,4 @@
 h1 友達申請を送る
-= form_tag '/friend_request', method: :post
-  = label_tag 'ユーザID'
-  = number_field_tag :friend_user_id
-  br
-  = submit_tag '送信'
+= bootstrap_form_for @friend_request, url: { action: :create } do |f|
+  = f.number_field :friend_user_id, label: 'ユーザID'
+  = f.submit '送信'

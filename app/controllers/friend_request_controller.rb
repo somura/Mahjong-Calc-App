@@ -6,17 +6,18 @@ class FriendRequestController < ApplicationController
     @user_names = friend_requests.each_with_object([]) do |(friend_request), array|
       friend_user_id = friend_request.user_id
       user = User.find(friend_user_id)
-      array << { name: user.login_id, id: friend_request.id } # nameを登録できるようにしたらuser.nameにする
+      array << { name: user.name, data: friend_request }
     end
     render template: 'friend_request/index'
   end
 
   def new
+    @friend_request = FriendRequest.new
     render template: 'friend_request/new'
   end
 
   def create
-    friend_user_id = params['friend_user_id']
+    friend_user_id = friend_request_params[:friend_user_id]
     return render template: 'friend_request/new', status: 400 unless friend_user_id
     return render template: 'friend_request/new', status: 400 if friend_user_id.to_i == user_id.to_i
 
@@ -60,5 +61,11 @@ class FriendRequestController < ApplicationController
     friend_request.save
 
     redirect_to action: 'index'
+  end
+
+  private
+
+  def friend_request_params
+    params.require(:friend_request).permit(:friend_user_id)
   end
 end

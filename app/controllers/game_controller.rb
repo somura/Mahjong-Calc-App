@@ -46,7 +46,7 @@ class GameController < ApplicationController
     members = TournamentUser.where(tournament_id: @tournament_id)
     @members = members.each_with_object([]) do |(member), array|
       user = User.find(member.user_id)
-      array << [ user.login_id, member.user_id ]
+      array << [ user.name, member.user_id ]
     end
     render template: 'game/new'
   end
@@ -134,7 +134,7 @@ class GameController < ApplicationController
     members = TournamentUser.where(tournament_id: @tournament_id)
     @members = members.each_with_object([]) do |(member), array|
       user = User.find(member.user_id)
-      array << [ user.login_id, member.user_id ]
+      array << [ user.name, member.user_id ]
     end
 
     game_users = GameUser.where(game_id: @game_id)
