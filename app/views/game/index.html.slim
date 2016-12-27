@@ -10,7 +10,7 @@ br
       tr
         th.info ゲーム
         - @members.each do |member|
-          th = member.login_id
+          th = member.name
     tbody
       - @games.each_with_index do |game, i|
         tr
