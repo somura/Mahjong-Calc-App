@@ -5,19 +5,23 @@ h1 newゲーム登録
     = f.select_tag 'position1', options_for_select(@members)
     = f.number_field_tag :score1
     = f.label_tag '点'
+    = button_tag '残り', type: 'button', onClick: 'calc1()'
   = f.label_tag '南家'
   .form-inline
     = f.select_tag 'position2', options_for_select(@members)
     = f.number_field_tag :score2
     = f.label_tag '点'
+    = button_tag '残り', type: 'button', onClick: 'calc2()'
   = f.label_tag '西家'
   .form-inline
     = f.select_tag 'position3', options_for_select(@members)
     = f.number_field_tag :score3
     = f.label_tag '点'
+    = button_tag '残り', type: 'button', onClick: 'calc3()'
   = f.label_tag '北家'
   .form-inline
     = f.select_tag 'position4', options_for_select(@members)
     = f.number_field_tag :score4
     = f.label_tag '点'
+    = button_tag '残り', type: 'button', onClick: 'calc4()'
   = f.submit_tag '登録'
