@@ -1,31 +1,63 @@
-h1 ゲーム一覧
+h1#top ゲーム一覧
 br
 = link_to 'ゲーム登録', "/tournament/#{@tournament_id}/game/new"
+br
+= link_to 'チップ入力', "#input_tip"
 br
 .table-responsive
-table.table.table-bordered.table-striped
-  thead
-    tr
-      th.info ゲーム
-      - @members.each do |member|
-        th = member.login_id
-  tbody
-    - @games.each_with_index do |game, i|
+  table.table.table-bordered.table-striped
+    thead
       tr
-        td.info
-          = link_to i + 1, "/tournament/#{@tournament_id}/game/#{game[:game_id]}/edit"
-        - game[:data].each do |g|
-          - if g[:rank] == 1
-            td.success = g[:point]
-          - elsif g[:rank] == 4
-            td.danger = g[:point]
-          - else
-            td = g[:point]
-  tfoot
-    tr
-      td.info 合計
-      - @results.each do |result|
-        td = result
-= link_to 'ゲーム登録', "/tournament/#{@tournament_id}/game/new"
+        th.info ゲーム
+        - @members.each do |member|
+          th = member.login_id
+    tbody
+      - @games.each_with_index do |game, i|
+        tr
+          td.info
+            = link_to i + 1, "/tournament/#{@tournament_id}/game/#{game[:game_id]}/edit"
+          - game[:data].each do |g|
+            - if g[:rank] == 1
+              td.success = g[:point]
+            - elsif g[:rank] == 4
+              td.danger = g[:point]
+            - else
+              td = g[:point]
+    tfoot
+      tr
+        td.info 合計
+        - @results.each do |result|
+          td = result
 
 = line_chart @data, curve: false, legend: 'bottom'
+
+
+h2#input_tip チップ入力
+.table-responsive
+  table.table.table-bordered.table-striped
+    thead
+      tr
+        th.info メンバー
+        - @members.each do |member|
+          th = member.login_id
+        th.info
+    tbody
+      tr
+        td.info ポイント
+        - @results.each do |result|
+          td = result
+        td.info
+      tr
+        td.info チップ(枚)
+        = bootstrap_form_tag url: "/tournament/#{@tournament_id}/tournament_result", method: :post do |f|
+          - @members.each_with_index do |member, index|
+            td
+              = f.number_field_tag "members[#{member.id}]", @totals[index][:tip], id: "member_id_#{member.id}", class: 'col-xs-3 col-lg-6'
+          td.info
+            = f.submit_tag '登録'
+      tr
+        td.info 合計(G)
+        - @totals.each do |result|
+          td = result[:total]
+        td.info
+= link_to 'TOPへ', "#top"

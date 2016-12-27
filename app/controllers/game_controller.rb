@@ -38,6 +38,12 @@ class GameController < ApplicationController
       game_users = GameUser.where(tournament_id: @tournament_id, user_id: member.user_id)
       array << game_users.map {|game_user| game_user.point.to_i }.inject(:+)
     end
+
+    @totals = members.each_with_object([]) do |(member), array|
+      tournament_results = TournamentResult.where(tournament_id: @tournament_id, user_id: member.user_id)
+      tournament_result = tournament_results.first
+      array << { total: tournament_result.total_gold, tip: tournament_result.tip }
+    end
     render template: 'game/index'
   end
 
@@ -122,6 +128,11 @@ class GameController < ApplicationController
       }
       game_user = GameUser.new game_user_data
       game_user.save
+
+      tournament_results = TournamentResult.where(tournament_id: tournament.id, user_id: result[:user])
+      tournament_result = tournament_results.first
+      tournament_result.total_point = tournament_result.total_point.to_i + result[:point]
+      tournament_result.save
     end
 
     redirect_to action: 'index'
@@ -207,6 +218,10 @@ class GameController < ApplicationController
 
     game_users = GameUser.where(game_id: @game_id)
     game_users.each do |game_user|
+      tournament_results = TournamentResult.where(tournament_id: tournament.id, user_id: game_user.user_id)
+      tournament_result = tournament_results.first
+      tournament_result.total_point -= game_user.point
+      tournament_result.save
       game_user.destroy
     end
 
@@ -222,6 +237,11 @@ class GameController < ApplicationController
       }
       game_user = GameUser.new game_user_data
       game_user.save
+
+      tournament_results = TournamentResult.where(tournament_id: tournament.id, user_id: result[:user])
+      tournament_result = tournament_results.first
+      tournament_result.total_point += result[:point]
+      tournament_result.save
     end
 
     redirect_to action: 'index'
