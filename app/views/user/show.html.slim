@@ -1,0 +1,25 @@
+h1 ユーザページ
+h2 プロフィール
+.table-responsive
+  table.table.table-bordered.table-striped
+    tbody
+      tr
+        td ニックネーム
+        td = @friend.name
+      tr
+        td ユーザID
+        td = @friend.id
+br
+h2 通算対戦成績
+.table-responsive
+  table.table.table-bordered.table-striped
+    tbody
+      tr
+        td 総半荘数
+        td = @tournament_count
+      tr
+        td 総局数
+        td = @win + @lose
+      tr
+        td 勝敗
+        td = "#{@win} 勝 #{@lose} 敗"

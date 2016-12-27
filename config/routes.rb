@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :top
   resources :my_page
+  resources :user
   resources :login
   resources :logout
   resources :register

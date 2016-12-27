@@ -1,4 +1,4 @@
 h1 友達一覧
-- @user_names.each do |user_name|
+- @users.each do |user|
   br
-  p = "#{user_name}"
+  = link_to user.name, "user/#{user.id}"
