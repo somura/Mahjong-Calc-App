@@ -1,0 +1,46 @@
+h1 マイページ
+h2 プロフィール
+.table-responsive
+  table.table.table-bordered.table-striped
+    tbody
+      tr
+        td ニックネーム
+        td = @name
+      tr
+        td ユーザID
+        td = @user_id
+br
+h2 通算成績
+.table-responsive
+  table.table.table-bordered.table-striped
+    tbody
+      tr
+        td 総半荘数
+        td = @tournament_count
+      tr
+        td 総局数
+        td = @game_count
+      tr
+        td 平均着順
+        td = "#{@average_position} 位"
+      tr
+        td 1位
+        td = "#{@first_count} 回"
+      tr
+        td 2位
+        td = "#{@second_count} 回"
+      tr
+        td 3位
+        td = "#{@third_count} 回"
+      tr
+        td 4位
+        td = "#{@fourth_count} 回"
+      tr
+        td 総ポイント
+        td = "#{@point} ポイント"
+      tr
+        td 総チップ
+        td = "#{@tip} 枚"
+      tr
+        td 総ゴールド
+        td = "#{@gold} G"
