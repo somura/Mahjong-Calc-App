@@ -1,7 +1,7 @@
 h1 友達申請一覧
 - @user_names.each do |user_name|
   br
-  = p user_name[:name]
+  p = user_name[:name]
   = bootstrap_form_for user_name[:data] do |f|
     = f.submit '承認', name: 'accepted', class: 'btn-success'
     = f.submit '拒否', name: 'rejected', class: 'btn-warning'
