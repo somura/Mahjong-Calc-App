@@ -34,6 +34,8 @@ class TournamentController < ApplicationController
       tournament_user_data = { tournament_id: tournament.id, user_id: member_id }
       tournament_user = TournamentUser.new tournament_user_data
       tournament_user.save
+      tournament_result = TournamentResult.new tournament_user_data
+      tournament_result.save
     end
 
     redirect_to action: 'index'
@@ -81,6 +83,8 @@ class TournamentController < ApplicationController
       tournament_user_data = { tournament_id: tournament.id, user_id: member_id }
       tournament_user = TournamentUser.new tournament_user_data
       tournament_user.save
+      tournament_result = TournamentResult.new tournament_user_data
+      tournament_result.save
     end
 
     redirect_to action: 'index'

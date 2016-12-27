@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161223071442) do
+ActiveRecord::Schema.define(version: 20161226134027) do
 
   create_table "friend_requests", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "user_id"
@@ -49,6 +49,16 @@ ActiveRecord::Schema.define(version: 20161223071442) do
     t.text     "login_session", limit: 65535
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+  end
+
+  create_table "tournament_results", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "tournament_id"
+    t.integer  "user_id"
+    t.integer  "tip"
+    t.integer  "total_point"
+    t.integer  "total_gold"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "tournament_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

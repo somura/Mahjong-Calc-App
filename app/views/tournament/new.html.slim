@@ -6,10 +6,10 @@ h1 試合新規登録
   .form-inline
     = f.radio_button 'mode', '3ma', { label: '3麻' }
   .form-inline
-    = f.number_field :def_score, value: 25000, label: '・'
+    = f.number_field :def_score, value: 25000, hide_label: true
     = f.label '点持ち'
   .form-inline
-    = f.number_field :return_score, value: 30000, label: '・'
+    = f.number_field :return_score, value: 30000, hide_label: true
     = f.label '点返し'
   = f.label 'ウマ'
   = f.number_field :uma1, value: 20, label: '1位'

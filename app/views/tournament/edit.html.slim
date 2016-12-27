@@ -6,22 +6,25 @@ h1 試合設定変更
   .form-inline
     = f.radio_button 'mode', '3ma', label: '3麻'
   .form-inline
-    = f.number_field :def_score, label: '・'
+    = f.number_field :def_score, hide_label: true
     = f.label '点持ち'
   .form-inline
-    = f.number_field :return_score, label: '・'
+    = f.number_field :return_score, hide_label: true
     = f.label '点返し'
   = f.label 'ウマ'
   = f.number_field :uma1, label: '1位'
   = f.number_field :uma2, label: '2位'
   = f.number_field :uma3, label: '3位'
   = f.number_field :uma4, label: '4位'
-  .form-inline
-    = f.number_field :point_rate, label: 'レート(点)'
-    = f.label 'G'
-  .form-inline
-    = f.number_field :tip_rate, label: 'レート(チップ)'
-    = f.label_tag 'G'
+  .form-horizontal
+    .form-inline
+      = f.label 'レート(点)'
+      = f.number_field :point_rate, hide_label: true
+      = f.label 'G'
+    .form-inline
+      = f.label 'レート(チップ)'
+      = f.number_field :tip_rate, hide_label: true
+      = f.label_tag 'G'
   br
   = f.label '飛び'
   .form-inline
@@ -29,7 +32,7 @@ h1 試合設定変更
     = f.label 'ポイント'
   = f.label_tag 'メンバー'
   - @friend_data.each do |friend|
-    .form-inline
+    .form-inline.form-horizontal
       = f.label friend.name
       - if @members["#{friend.id}"].nil?
         = check_box_tag 'members[]', friend.id, false, id: "member_id_#{friend.id}"
