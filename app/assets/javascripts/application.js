@@ -35,3 +35,15 @@ function calc4() {
   var point = 100000 - Number($("#score1").val()) - Number($("#score2").val()) - Number($("#score3").val());
   $("#score4").val(point);
 };
+
+function changePosition() {
+  var before1 = $("#position1").val();
+  var before2 = $("#position2").val();
+  var before3 = $("#position3").val();
+  var before4 = $("#position4").val();
+
+  $("#position1").val(before2);
+  $("#position2").val(before3);
+  $("#position3").val(before4);
+  $("#position4").val(before1);
+};
