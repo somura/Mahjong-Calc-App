@@ -49,6 +49,16 @@ class GameController < ApplicationController
 
   def new
     @tournament_id = params['tournament_id']
+
+    game = Game.where(tournament_id: @tournament_id).order("id DESC").limit(1)
+    if game.empty?
+      @before_members = []
+    else
+      game_users = GameUser.where(tournament_id: @tournament_id, game_id: game.first.id)
+      @before_members = game_users.sort_by {|game_user| game_user.position }.map {|m| m.user_id }
+    end
+    p @before_members
+
     members = TournamentUser.where(tournament_id: @tournament_id)
     @members = members.each_with_object([]) do |(member), array|
       user = User.find(member.user_id)

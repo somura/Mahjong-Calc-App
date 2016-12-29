@@ -1,4 +1,5 @@
 h1 ゲーム更新
+= button_tag '周り親', type: 'button', onClick: 'changePosition()'
 = bootstrap_form_tag url: "/tournament/#{@tournament_id}/game/#{@game_id}", method: :put do |f|
   = f.label_tag '東家'
   .form-inline

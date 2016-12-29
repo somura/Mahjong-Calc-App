@@ -1,26 +1,31 @@
 h1 newゲーム登録
+= button_tag '周り親', type: 'button', onClick: 'changePosition()'
 = bootstrap_form_tag url: "/tournament/#{@tournament_id}/game", method: :post do |f|
   = f.label_tag '東家'
   .form-inline
-    = f.select_tag 'position1', options_for_select(@members)
+    - default_user1 = @before_members[0] || @members[0][:user]
+    = f.select_tag 'position1', options_for_select(@members, default_user1)
     = f.number_field_tag :score1
     = f.label_tag '点'
     = button_tag '残り', type: 'button', onClick: 'calc1()'
   = f.label_tag '南家'
   .form-inline
-    = f.select_tag 'position2', options_for_select(@members)
+    - default_user2 = @before_members[1] || @members[0][:user]
+    = f.select_tag 'position2', options_for_select(@members, default_user2)
     = f.number_field_tag :score2
     = f.label_tag '点'
     = button_tag '残り', type: 'button', onClick: 'calc2()'
   = f.label_tag '西家'
   .form-inline
-    = f.select_tag 'position3', options_for_select(@members)
+    - default_user3 = @before_members[2] || @members[0][:user]
+    = f.select_tag 'position3', options_for_select(@members, default_user3)
     = f.number_field_tag :score3
     = f.label_tag '点'
     = button_tag '残り', type: 'button', onClick: 'calc3()'
   = f.label_tag '北家'
   .form-inline
-    = f.select_tag 'position4', options_for_select(@members)
+    - default_user4 = @before_members[3] || @members[0][:user]
+    = f.select_tag 'position4', options_for_select(@members, default_user4)
     = f.number_field_tag :score4
     = f.label_tag '点'
     = button_tag '残り', type: 'button', onClick: 'calc4()'
