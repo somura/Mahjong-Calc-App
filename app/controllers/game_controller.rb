@@ -357,7 +357,7 @@ class GameController < ApplicationController
     game_users.each do |game_user|
       tournament_results = TournamentResult.where(tournament_id: tournament.id, user_id: game_user.user_id)
       tournament_result = tournament_results.first
-      tournament_result.total_point -= game_user.point
+      tournament_result.total_point = tournament_result.total_point.to_i - game_user.point
       tournament_result.save
       game_user.destroy
     end
@@ -377,7 +377,7 @@ class GameController < ApplicationController
 
       tournament_results = TournamentResult.where(tournament_id: tournament.id, user_id: result[:user])
       tournament_result = tournament_results.first
-      tournament_result.total_point += result[:point]
+      tournament_result.total_point = tournament_result.total_point.to_i + result[:point]
       tournament_result.save
     end
 

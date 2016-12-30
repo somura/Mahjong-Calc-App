@@ -9,38 +9,40 @@ h2 プロフィール
       tr
         td ユーザID
         td = @user_id
-br
-h2 通算成績
-.table-responsive
-  table.table.table-bordered.table-striped
-    tbody
-      tr
-        td 総セット数
-        td = @tournament_count
-      tr
-        td 総半荘数
-        td = @game_count
-      tr
-        td 平均着順
-        td = "#{@average_position} 位"
-      tr
-        td 1位
-        td = "#{@first_count} 回"
-      tr
-        td 2位
-        td = "#{@second_count} 回"
-      tr
-        td 3位
-        td = "#{@third_count} 回"
-      tr
-        td 4位
-        td = "#{@fourth_count} 回"
-      tr
-        td 総ポイント
-        td = "#{@point} ポイント"
-      tr
-        td 総チップ
-        td = "#{@tip} 枚"
-      tr
-        td 総ゴールド
-        td = "#{@gold} G"
+- { four: '4麻', three: '3麻', toutenko: '東天紅' }.each do |mode, label|
+  br
+  h2 = "#{label}通算成績"
+  .table-responsive
+    table.table.table-bordered.table-striped
+      tbody
+        tr
+          td 総セット数
+          td = @results[mode][:tournament_count]
+        tr
+          td 総半荘数
+          td = @results[mode][:game_count]
+        tr
+          td 平均着順
+          td = "#{@results[mode][:average_position]} 位"
+        tr
+          td 1位
+          td = "#{@results[mode][:first_count]} 位"
+        tr
+          td 2位
+          td = "#{@results[mode][:second_count]} 位"
+        tr
+          td 3位
+          td = "#{@results[mode][:third_count]} 位"
+        - if mode == :four
+          tr
+            td 4位
+            td = "#{@results[mode][:fourth_count]} 位"
+        tr
+          td 総ポイント
+          td = "#{@results[mode][:point]} ポイント"
+        tr
+          td 総チップ
+          td = "#{@results[mode][:tip]} 枚"
+        tr
+          td 総ゴールド
+          td = "#{@results[mode][:gold]} G"
