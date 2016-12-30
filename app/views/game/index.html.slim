@@ -19,10 +19,15 @@ br
           - game[:data].each do |g|
             - if g[:rank] == 1
               td.success = g[:point]
-            - elsif g[:rank] == 4
-              td.danger = g[:point]
             - else
-              td = g[:point]
+              - if @mode == '4ma' && g[:rank] == 4
+                td.danger = g[:point]
+              - elsif @mode == '3ma' && g[:rank] == 3
+                td.danger = g[:point]
+              - elsif @mode == 'toutenko' && g[:rank] == 3
+                td.danger = g[:point]
+              - else
+                td = g[:point]
     tfoot
       tr
         td.info 合計

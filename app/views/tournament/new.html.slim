@@ -6,16 +6,24 @@ h1 試合新規登録
   .form-inline
     = f.radio_button 'mode', '3ma', { label: '3麻' }
   .form-inline
-    = f.number_field :def_score, value: 25000, hide_label: true
+    = f.radio_button 'mode', 'toutenko', { label: '東天紅' }
+  br
+  .form-inline
+    = f.telephone_field :def_score, value: 25000, hide_label: true
     = f.label '点持ち'
   .form-inline
     = f.number_field :return_score, value: 30000, hide_label: true
     = f.label '点返し'
+  br
   = f.label 'ウマ'
   = f.number_field :uma1, value: 20, label: '1位'
   = f.number_field :uma2, value: 10, label: '2位'
   = f.number_field :uma3, value: -10, label: '3位'
-  = f.number_field :uma4, value: -20, label: '4位'
+  .4ma
+    = f.number_field :uma4, value: -20, label: '4位'
+  .toutenko
+    = f.number_field :kubi, value: 15000, label: 'クビ'
+  br
   .form-inline
     = f.number_field :point_rate, value: 30, label: 'レート(点)'
     = f.label 'G'
@@ -27,6 +35,7 @@ h1 試合新規登録
   .form-inline
     = f.number_field :tobi_point, label: 'ポイント換算'
     = f.label 'ポイント'
+  br
   = f.label 'メンバー'
   - @friend_data.each do |friend|
     .form-inline

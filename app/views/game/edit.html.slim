@@ -6,19 +6,70 @@ h1 ゲーム更新
     = f.select_tag 'position1', options_for_select(@members, @game_users[0][:user])
     = f.number_field_tag :score1, @game_users[0][:score]
     = f.label_tag '点'
+    - if @mode == '4ma'
+      = button_tag '残り', type: 'button', onClick: 'calc_4ma_1()'
+    - if @mode == '3ma'
+      = button_tag '残り', type: 'button', onClick: 'calc_3ma_1()'
+    - if @mode == 'toutenko'
+      = button_tag '残り', type: 'button', onClick: 'calc_toutenko_1()'
+  = f.label_tag '1人飛ばし'
+  = check_box_tag 'tobashi1[]', 1, false
+  = f.label_tag '2人飛ばし'
+  = check_box_tag 'tobashi2[]', 1, false
+  - if @mode == '4ma'
+    = f.label_tag '3人飛ばし'
+    = check_box_tag 'tobashi3[]', 1, false
+  br
   = f.label_tag '南家'
   .form-inline
     = f.select_tag 'position2', options_for_select(@members, @game_users[1][:user])
     = f.number_field_tag :score2, @game_users[1][:score]
     = f.label_tag '点'
+    - if @mode == '4ma'
+      = button_tag '残り', type: 'button', onClick: 'calc_4ma_2()'
+    - if @mode == '3ma'
+      = button_tag '残り', type: 'button', onClick: 'calc_3ma_2()'
+    - if @mode == 'toutenko'
+      = button_tag '残り', type: 'button', onClick: 'calc_toutenko_2()'
+  = f.label_tag '1人飛ばし'
+  = check_box_tag 'tobashi1[]', 2, false
+  = f.label_tag '2人飛ばし'
+  = check_box_tag 'tobashi2[]', 2, false
+  - if @mode == '4ma'
+    = f.label_tag '3人飛ばし'
+    = check_box_tag 'tobashi3[]', 2, false
+  br
   = f.label_tag '西家'
   .form-inline
     = f.select_tag 'position3', options_for_select(@members, @game_users[2][:user])
     = f.number_field_tag :score3, @game_users[2][:score]
     = f.label_tag '点'
-  = f.label_tag '北家'
-  .form-inline
-    = f.select_tag 'position4', options_for_select(@members, @game_users[3][:user])
-    = f.number_field_tag :score4, @game_users[2][:score]
-    = f.label_tag '点'
+    - if @mode == '4ma'
+      = button_tag '残り', type: 'button', onClick: 'calc_4ma_3()'
+    - if @mode == '3ma'
+      = button_tag '残り', type: 'button', onClick: 'calc_3ma_3()'
+    - if @mode == 'toutenko'
+      = button_tag '残り', type: 'button', onClick: 'calc_toutenko_3()'
+  = f.label_tag '1人飛ばし'
+  = check_box_tag 'tobashi1[]', 3, false
+  = f.label_tag '2人飛ばし'
+  = check_box_tag 'tobashi2[]', 3, false
+  - if @mode == '4ma'
+    = f.label_tag '3人飛ばし'
+    = check_box_tag 'tobashi3[]', 3, false
+  br
+  - if @mode == '4ma'
+    = f.label_tag '北家'
+    .form-inline
+      = f.select_tag 'position4', options_for_select(@members, @game_users[3][:user])
+      = f.number_field_tag :score4, @game_users[2][:score]
+      = f.label_tag '点'
+      = button_tag '残り', type: 'button', onClick: 'calc_4ma_4()'
+    = f.label_tag '1人飛ばし'
+    = check_box_tag 'tobashi1[]', 4, false
+    = f.label_tag '2人飛ばし'
+    = check_box_tag 'tobashi2[]', 4, false
+    = f.label_tag '3人飛ばし'
+    = check_box_tag 'tobashi3[]', 4, false
+  br
   = f.submit_tag '登録'
