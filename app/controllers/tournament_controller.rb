@@ -18,16 +18,30 @@ class TournamentController < ApplicationController
   end
 
   def create
-    uma = [
-      tournament_params[:uma1],
-      tournament_params[:uma2],
-      tournament_params[:uma3],
-      tournament_params[:uma4]
-    ].map {|m| m.to_i }
+    mode = tournament_params['mode']
+
+    uma = nil
+    if mode == '4ma'
+      uma = [
+        tournament_params[:uma1],
+        tournament_params[:uma2],
+        tournament_params[:uma3],
+        tournament_params[:uma4]
+      ].map {|m| m.to_i }
+      return redirect_to action: 'new', status: 400 if params['members'].size < 3
+    else
+      uma = [
+        tournament_params[:uma1],
+        tournament_params[:uma2],
+        tournament_params[:uma3],
+      ].map {|m| m.to_i }
+      return redirect_to action: 'new', status: 400 if params['members'].size < 2
+    end
+
     unless uma.inject {|sum, n| sum + n } == 0
       return redirect_to action: 'new', status: 400
     end
-    return redirect_to action: 'new', status: 400 if params['members'].size < 3
+
     tournament = Tournament.new tournament_params
     tournament.save
     (params['members'] + [user_id]).each do |member_id|
@@ -57,18 +71,26 @@ class TournamentController < ApplicationController
   end
 
   def update
+    mode = tournament_params['mode']
     tournament_id = params['id']
 
-    uma = [
-      tournament_params[:uma1],
-      tournament_params[:uma2],
-      tournament_params[:uma3],
-      tournament_params[:uma4]
-    ].map {|m| m.to_i }
-    unless uma.inject {|sum, n| sum + n } == 0
-      return redirect_to action: 'index', status: 400
+    uma = nil
+    if mode == '4ma'
+      uma = [
+        tournament_params[:uma1],
+        tournament_params[:uma2],
+        tournament_params[:uma3],
+        tournament_params[:uma4]
+      ].map {|m| m.to_i }
+      return redirect_to action: 'new', status: 400 if params['members'].size < 3
+    else
+      uma = [
+        tournament_params[:uma1],
+        tournament_params[:uma2],
+        tournament_params[:uma3],
+      ].map {|m| m.to_i }
+      return redirect_to action: 'new', status: 400 if params['members'].size < 2
     end
-    return redirect_to action: 'index', status: 400 if params['members'].size < 3
 
     tournament = Tournament.find(tournament_id)
     tournament.update tournament_params
@@ -93,6 +115,6 @@ class TournamentController < ApplicationController
   private
 
   def tournament_params
-    params.require(:tournament).permit(:mode, :def_score, :return_score, :uma1, :uma2, :uma3, :uma4, :point_rate, :tip_rate, :tobi_point)
+    params.require(:tournament).permit(:mode, :def_score, :return_score, :uma1, :uma2, :uma3, :uma4, :kubi, :point_rate, :tip_rate, :tobi_point)
   end
 end

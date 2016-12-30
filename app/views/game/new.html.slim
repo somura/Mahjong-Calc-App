@@ -3,30 +3,77 @@ h1 newゲーム登録
 = bootstrap_form_tag url: "/tournament/#{@tournament_id}/game", method: :post do |f|
   = f.label_tag '東家'
   .form-inline
-    - default_user1 = @before_members[0] || @members[0][:user]
+    - default_user1 = @before_members[0] || @members[0][0]
     = f.select_tag 'position1', options_for_select(@members, default_user1)
     = f.number_field_tag :score1
     = f.label_tag '点'
-    = button_tag '残り', type: 'button', onClick: 'calc1()'
+    - if @mode == '4ma'
+      = button_tag '残り', type: 'button', onClick: 'calc_4ma_1()'
+    - if @mode == '3ma'
+      = button_tag '残り', type: 'button', onClick: 'calc_3ma_1()'
+    - if @mode == 'toutenko'
+      = button_tag '残り', type: 'button', onClick: 'calc_toutenko_1()'
+  = f.label_tag '1人飛ばし'
+  = check_box_tag 'tobashi1[]', 1, false
+  = f.label_tag '2人飛ばし'
+  = check_box_tag 'tobashi2[]', 1, false
+  - if @mode == '4ma'
+    = f.label_tag '3人飛ばし'
+    = check_box_tag 'tobashi3[]', 1, false
+  br
   = f.label_tag '南家'
   .form-inline
-    - default_user2 = @before_members[1] || @members[0][:user]
+    - default_user2 = @before_members[1] || @members[0][0]
     = f.select_tag 'position2', options_for_select(@members, default_user2)
     = f.number_field_tag :score2
     = f.label_tag '点'
-    = button_tag '残り', type: 'button', onClick: 'calc2()'
+    - if @mode == '4ma'
+      = button_tag '残り', type: 'button', onClick: 'calc_4ma_2()'
+    - if @mode == '3ma'
+      = button_tag '残り', type: 'button', onClick: 'calc_3ma_2()'
+    - if @mode == 'toutenko'
+      = button_tag '残り', type: 'button', onClick: 'calc_toutenko_2()'
+  = f.label_tag '1人飛ばし'
+  = check_box_tag 'tobashi1[]', 2, false
+  = f.label_tag '2人飛ばし'
+  = check_box_tag 'tobashi2[]', 2, false
+  - if @mode == '4ma'
+    = f.label_tag '3人飛ばし'
+    = check_box_tag 'tobashi3[]', 2, false
+  br
   = f.label_tag '西家'
   .form-inline
-    - default_user3 = @before_members[2] || @members[0][:user]
+    - default_user3 = @before_members[2] || @members[0][0]
     = f.select_tag 'position3', options_for_select(@members, default_user3)
     = f.number_field_tag :score3
     = f.label_tag '点'
-    = button_tag '残り', type: 'button', onClick: 'calc3()'
-  = f.label_tag '北家'
-  .form-inline
-    - default_user4 = @before_members[3] || @members[0][:user]
-    = f.select_tag 'position4', options_for_select(@members, default_user4)
-    = f.number_field_tag :score4
-    = f.label_tag '点'
-    = button_tag '残り', type: 'button', onClick: 'calc4()'
+    - if @mode == '4ma'
+      = button_tag '残り', type: 'button', onClick: 'calc_4ma_3()'
+    - if @mode == '3ma'
+      = button_tag '残り', type: 'button', onClick: 'calc_3ma_3()'
+    - if @mode == 'toutenko'
+      = button_tag '残り', type: 'button', onClick: 'calc_toutenko_3()'
+  = f.label_tag '1人飛ばし'
+  = check_box_tag 'tobashi1[]', 3, false
+  = f.label_tag '2人飛ばし'
+  = check_box_tag 'tobashi2[]', 3, false
+  - if @mode == '4ma'
+    = f.label_tag '3人飛ばし'
+    = check_box_tag 'tobashi3[]', 3, false
+  br
+  - if @mode == '4ma'
+    = f.label_tag '北家'
+    .form-inline
+      - default_user4 = @before_members[3] || @members[0][0]
+      = f.select_tag 'position4', options_for_select(@members, default_user4)
+      = f.number_field_tag :score4
+      = f.label_tag '点'
+      = button_tag '残り', type: 'button', onClick: 'calc_4ma_4()'
+    = f.label_tag '1人飛ばし'
+    = check_box_tag 'tobashi1[]', 4, false
+    = f.label_tag '2人飛ばし'
+    = check_box_tag 'tobashi2[]', 4, false
+    = f.label_tag '3人飛ばし'
+    = check_box_tag 'tobashi3[]', 4, false
+  br
   = f.submit_tag '登録'
