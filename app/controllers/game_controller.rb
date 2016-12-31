@@ -35,7 +35,7 @@ class GameController < ApplicationController
         _array << [i, point]
       end
       data = data.unshift([0, 0])
-      array << { name: member.login_id, data: data }
+      array << { name: member.name, data: data }
     end
 
     @results = members.each_with_object([]) do |(member), array|
@@ -132,13 +132,15 @@ class GameController < ApplicationController
       end
     end
 
-    tobi = results.select {|r| r[:score] < 0 }.size
-    tobashi = 0
-    (1..3).each do |i|
-      next unless params["tobashi#{i}"]
-      tobashi += params["tobashi#{i}"].size * i
+    if tournament.tobi_point
+      tobi = results.select {|r| r[:score] < 0 }.size
+      tobashi = 0
+      (1..3).each do |i|
+        next unless params["tobashi#{i}"]
+        tobashi += params["tobashi#{i}"].size * i
+      end
+      return redirect_to action: 'new', status: 401 unless tobi == tobashi
     end
-    return redirect_to action: 'new', status: 400 unless tobi == tobashi
 
     results = results.sort_by {|r| r[:score] }.reverse
     results.each_with_index do |result, i|
@@ -164,13 +166,15 @@ class GameController < ApplicationController
         point += tournament.send("uma#{i + 1}") - (tournament.return_score.to_i / 1000)
       end
 
-      if result[:score] < 0
-        point -= tournament.tobi_point
-      end
-      (1..3).each do |index|
-        next unless params["tobashi#{index}"]
-        params["tobashi#{index}"].each do |t|
-          point += tournament.tobi_point * index if result[:position] == t.to_i
+      if tournament.tobi_point
+        if result[:score] < 0
+          point -= tournament.tobi_point
+        end
+        (1..3).each do |index|
+          next unless params["tobashi#{index}"]
+          params["tobashi#{index}"].each do |t|
+            point += tournament.tobi_point * index if result[:position] == t.to_i
+          end
         end
       end
       results[i][:point] = point
@@ -296,14 +300,16 @@ class GameController < ApplicationController
       end
     end
 
-    tobi = results.select {|r| r[:score] < 0 }.size
-    tobashi = 0
-    (1..3).each do |i|
-      next unless params["tobashi#{i}"]
-      tobashi += params["tobashi#{i}"].size * i
+    if tournament.tobi_point
+      tobi = results.select {|r| r[:score] < 0 }.size
+      tobashi = 0
+      (1..3).each do |i|
+        next unless params["tobashi#{i}"]
+        tobashi += params["tobashi#{i}"].size * i
+      end
+      @game_id = params['id']
+      return redirect_to action: 'edit', id: @game_id, status: 400 unless tobi == tobashi
     end
-    @game_id = params['id']
-    return redirect_to action: 'edit', id: @game_id, status: 400 unless tobi == tobashi
 
     results = results.sort_by {|r| r[:score] }.reverse
     results.each_with_index do |result, i|
@@ -329,13 +335,15 @@ class GameController < ApplicationController
         point += tournament.send("uma#{i + 1}") - (tournament.return_score.to_i / 1000)
       end
 
-      if result[:score] < 0
-        point -= tournament.tobi_point
-      end
-      (1..3).each do |index|
-        next unless params["tobashi#{index}"]
-        params["tobashi#{index}"].each do |t|
-          point += tournament.tobi_point * index if result[:position] == t.to_i
+      if tournament.tobi_point
+        if result[:score] < 0
+          point -= tournament.tobi_point
+        end
+        (1..3).each do |index|
+          next unless params["tobashi#{index}"]
+          params["tobashi#{index}"].each do |t|
+            point += tournament.tobi_point * index if result[:position] == t.to_i
+          end
         end
       end
       results[i][:point] = point

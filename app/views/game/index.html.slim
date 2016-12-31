@@ -57,7 +57,7 @@ h2#input_tip チップ入力
         = bootstrap_form_tag url: "/tournament/#{@tournament_id}/tournament_result", method: :post do |f|
           - @members.each_with_index do |member, index|
             td
-              = f.number_field_tag "members[#{member.id}]", @totals[index][:tip], id: "member_id_#{member.id}", class: 'col-xs-3 col-lg-6'
+              = f.number_field_tag "members[#{member.id}]", @totals[index][:tip], id: "member_id_#{member.id}"
           td.info
             = f.submit_tag '登録'
       tr
