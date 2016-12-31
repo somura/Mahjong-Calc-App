@@ -25,7 +25,7 @@ class UserController < ApplicationController
           result[:tournament_count] += 1
           my_gus = GameUser.where(tournament_id: my_tu.tournament_id, user_id: user_id)
           my_gus.each do |my_gu|
-            fri_gus = GameUser.where(tournament_id: my_gu.tournament_id, user_id: friend_id)
+            fri_gus = GameUser.where(game_id: my_gu.game_id, user_id: friend_id)
             unless fri_gus.empty?
               if my_gu.rank.to_i > fri_gus.first.rank.to_i
                 result[:lose] += 1
