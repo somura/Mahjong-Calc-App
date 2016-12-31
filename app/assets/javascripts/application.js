@@ -59,7 +59,7 @@ function calc_toutenko_3() {
   $("#score3").val(point);
 };
 
-function changePosition() {
+function changePosition_4ma() {
   var before1 = $("#position1").val();
   var before2 = $("#position2").val();
   var before3 = $("#position3").val();
@@ -69,6 +69,16 @@ function changePosition() {
   $("#position2").val(before3);
   $("#position3").val(before4);
   $("#position4").val(before1);
+};
+
+function changePosition_3ma() {
+  var before1 = $("#position1").val();
+  var before2 = $("#position2").val();
+  var before3 = $("#position3").val();
+
+  $("#position1").val(before2);
+  $("#position2").val(before3);
+  $("#position3").val(before4);
 };
 
 (function() {

@@ -1,5 +1,8 @@
 h1 newゲーム登録
-= button_tag '周り親', type: 'button', onClick: 'changePosition()'
+- if @mode == '4ma'
+  = button_tag '周り親', type: 'button', onClick: 'changePosition_4ma()'
+- else
+  = button_tag '周り親', type: 'button', onClick: 'changePosition_3ma()'
 = bootstrap_form_tag url: "/tournament/#{@tournament_id}/game", method: :post do |f|
   = f.label_tag '東家'
   .form-inline
