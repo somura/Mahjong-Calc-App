@@ -26,17 +26,17 @@ h2 プロフィール
           td = "#{@results[mode][:average_position]} 位"
         tr
           td 1位
-          td = "#{@results[mode][:first_count]} 位"
+          td = "#{@results[mode][:first_count]} 回"
         tr
           td 2位
-          td = "#{@results[mode][:second_count]} 位"
+          td = "#{@results[mode][:second_count]} 回"
         tr
           td 3位
-          td = "#{@results[mode][:third_count]} 位"
+          td = "#{@results[mode][:third_count]} 回"
         - if mode == :four
           tr
             td 4位
-            td = "#{@results[mode][:fourth_count]} 位"
+            td = "#{@results[mode][:fourth_count]} 回"
         tr
           td 総ポイント
           td = "#{@results[mode][:point]} ポイント"
