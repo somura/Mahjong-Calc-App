@@ -78,7 +78,7 @@ function changePosition_3ma() {
 
   $("#position1").val(before2);
   $("#position2").val(before3);
-  $("#position3").val(before4);
+  $("#position3").val(before1);
 };
 
 (function() {
