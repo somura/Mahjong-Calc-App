@@ -1,0 +1,2 @@
+class GameMemo < ApplicationRecord
+end

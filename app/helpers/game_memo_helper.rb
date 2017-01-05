@@ -1,0 +1,2 @@
+module GameMemoHelper
+end

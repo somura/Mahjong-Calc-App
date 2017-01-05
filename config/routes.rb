@@ -8,7 +8,9 @@ Rails.application.routes.draw do
   resources :friend
   resources :friend_request
   resources :tournament do
-    resources :game
+    resources :game do
+      resources :game_memo
+    end
     resources :tournament_result
   end
 

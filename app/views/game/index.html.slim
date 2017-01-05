@@ -11,6 +11,7 @@ br
         th.info ゲーム
         - @members.each do |member|
           th = member.name
+        th.info メモ
     tbody
       - @games.each_with_index do |game, i|
         tr
@@ -28,11 +29,17 @@ br
                 td.danger = g[:point]
               - else
                 td = g[:point]
+          td.info
+            - if @comments[i]
+              = link_to "コメントあり", "/tournament/#{@tournament_id}/game/#{game[:game_id]}/game_memo/"
+              br
+            = link_to "コメント追加", "/tournament/#{@tournament_id}/game/#{game[:game_id]}/game_memo/new"
     tfoot
       tr
         td.info 合計
         - @results.each do |result|
           td = result
+        td.info
 
 = line_chart @data, curve: false, legend: 'bottom'
 

@@ -1,0 +1,5 @@
+h1 メモ登録
+= bootstrap_form_for @game_memo, url: { action: :create } do |f|
+  = f.label 'メモ'
+  = f.text_area :comment
+  = f.submit '登録'

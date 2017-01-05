@@ -11,6 +11,7 @@ class GameController < ApplicationController
       array << user
     end
 
+    @comments = []
     games = Game.where(tournament_id: params['tournament_id'])
     @games = games.each_with_object([]) do |(game), array|
       data = @members.each_with_object([]) do |(member), _array|
@@ -23,6 +24,12 @@ class GameController < ApplicationController
         _array << result
       end
       array << { game_id: game.id, data: data }
+      game_memos = GameMemo.where(game_id: game.id)
+      if game_memos.empty?
+        @comments.push nil
+      else
+        @comments.push true
+      end
     end
 
     @data = @members.each_with_object([]) do |(member), array|
@@ -48,6 +55,7 @@ class GameController < ApplicationController
       tournament_result = tournament_results.first
       array << { total: tournament_result.total_gold, tip: tournament_result.tip }
     end
+
     render template: 'game/index'
   end
 
